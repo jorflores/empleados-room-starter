@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tema mínimo de la Activity. Los colores reales están en ui/theme (Compose). -->
+    <style name="Theme.Empleados" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>
