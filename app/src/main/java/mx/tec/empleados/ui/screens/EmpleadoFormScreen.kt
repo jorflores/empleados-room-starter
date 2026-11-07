@@ -37,7 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import mx.tec.empleados.data.model.Empleado
+import mx.tec.empleados.data.remote.Empleado
 
 // Sirve para CREAR (empleado == null) y para EDITAR (empleado != null).
 @OptIn(ExperimentalMaterial3Api::class)

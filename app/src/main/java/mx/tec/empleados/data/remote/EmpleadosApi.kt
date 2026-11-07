@@ -12,13 +12,14 @@ import retrofit2.http.Path
 interface EmpleadosApi {
 
     @GET("empleados")
-    suspend fun listar(): List<EmpleadoDto>
+    suspend fun listar(): List<Empleado>
 
+    // El id que va en el body se ignora: el servidor asigna uno nuevo.
     @POST("empleados")
-    suspend fun crear(@Body datos: EmpleadoRequest): EmpleadoDto
+    suspend fun crear(@Body empleado: Empleado): Empleado
 
     @PUT("empleados/{id}")
-    suspend fun actualizar(@Path("id") id: Int, @Body datos: EmpleadoRequest): EmpleadoDto
+    suspend fun actualizar(@Path("id") id: Int, @Body empleado: Empleado): Empleado
 
     // DELETE responde 204 sin body: por eso Response<Unit> y se revisa isSuccessful.
     @DELETE("empleados/{id}")

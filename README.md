@@ -37,10 +37,8 @@ mx.tec.empleados
 │   ├── Rutas.kt                    empleados  y  empleado/{id}  (id 0 = nuevo)
 │   └── AppNavigation.kt            NavHost + un solo ViewModel compartido
 ├── data
-│   ├── model
-│   │   └── Empleado.kt             El empleado "de la app" (lo usan pantallas y ViewModel)
 │   ├── remote
-│   │   ├── EmpleadoDto.kt          JSON de la API + conversiones toModel() / toRequest()
+│   │   ├── Empleado.kt             El empleado (mismo JSON que la API); lo usa toda la app
 │   │   ├── EmpleadosApi.kt         GET, POST, PUT, DELETE /empleados
 │   │   └── RetrofitClient.kt       URL base, JSON y Logcat
 │   └── repository
@@ -53,13 +51,6 @@ mx.tec.empleados
     │   └── EmpleadoFormScreen.kt   Crear / editar / borrar
     └── theme                       Colores, tema y tipografía
 ```
-
-**¿Por qué hay tres clases de empleado?**
-- `EmpleadoDto` es el empleado como lo manda el servidor.
-- `Empleado` es el empleado como lo usa la app.
-- En clase aparecerá una tercera, `EmpleadoEntity`, que es como lo guarda Room.
-
-Cada capa tiene su propia clase y se convierten entre sí, así un cambio en la API no rompe las pantallas.
 
 ## Lo que agregaremos en clase (Room)
 

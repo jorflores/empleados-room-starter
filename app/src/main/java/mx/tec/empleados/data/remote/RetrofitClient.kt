@@ -16,8 +16,11 @@ object RetrofitClient {
     // - Túnel HTTPS o Render: "https://<tu-url>/"
     private const val BASE_URL = "http://10.0.2.2:3000/"
 
-    // Si la API agrega campos nuevos, la app no truena.
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json {
+        ignoreUnknownKeys = true  // si la API agrega campos nuevos, la app no truena
+        encodeDefaults = true     // manda TODOS los campos, aunque tengan su valor por defecto
+                                  // (sin esto, activo = true no se enviaría al editar)
+    }
 
     // Imprime en Logcat cada petición y respuesta. Filtro: tag~:okhttp
     private val logging = HttpLoggingInterceptor().apply {

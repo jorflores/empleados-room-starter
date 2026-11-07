@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import mx.tec.empleados.data.model.Empleado
+import mx.tec.empleados.data.remote.Empleado
 import mx.tec.empleados.data.repository.EmpleadoRepository
 import retrofit2.HttpException
 import java.io.IOException

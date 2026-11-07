@@ -42,7 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import mx.tec.empleados.data.model.Empleado
+import mx.tec.empleados.data.remote.Empleado
 import mx.tec.empleados.ui.viewmodel.EmpleadosUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
