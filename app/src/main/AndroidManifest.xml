@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- usesCleartextTraffic="true": permite HTTP sin cifrar para la API local (http://10.0.2.2:3000).
-         Solo para desarrollo. Con Render o el túnel HTTPS no se necesita. -->
+         Solo para desarrollo. Con el túnel HTTPS no se necesita. -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

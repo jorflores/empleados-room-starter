@@ -20,7 +20,7 @@ Es el **punto de partida de la clase de Room**. La app ya lista, crea, edita y b
 2. Revisa que http://localhost:3000/empleados regrese 5 empleados en el navegador.
 3. Abre este proyecto en Android Studio (**File > Open**) y córrelo en el **emulador**.
 
-La URL ya apunta a `http://10.0.2.2:3000/`, que es tu computadora vista desde el emulador. Para cambiarla (Render, túnel HTTPS o un teléfono físico), edita `BASE_URL` en `data/remote/RetrofitClient.kt`.
+La URL ya apunta a `http://10.0.2.2:3000/`, que es tu computadora vista desde el emulador. Para cambiarla (túnel HTTPS o un teléfono físico), edita `BASE_URL` en `data/remote/RetrofitClient.kt`.
 
 > **Prueba el problema:** con la app abierta, apaga la API (`docker compose stop api`) o pon el emulador en modo avión y toca ↻. La lista no carga. Eso es lo que resolveremos con Room.
 
