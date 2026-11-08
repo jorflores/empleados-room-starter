@@ -27,6 +27,8 @@ fun AppNavigation() {
         composable(Rutas.LISTA) {
             EmpleadosScreen(
                 empleados = estado.empleados,
+                enLinea = estado.enLinea,
+                onRecargar = { vm.cargar() },
                 onAgregar = { navController.navigate(Rutas.formulario(0)) },
                 onEditar = { id -> navController.navigate(Rutas.formulario(id)) },
             )

@@ -6,7 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import mx.tec.empleados.data.model.Empleado
 
-@Database(entities = [Empleado::class], version = 1)
+// version 2: la tabla ganó la columna "pendiente".
+@Database(entities = [Empleado::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun empleadoDao(): EmpleadoDao
@@ -21,7 +22,11 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "empleados.db"
-                ).build().also { INSTANCE = it }
+                )
+                    // Solo en desarrollo: si cambia la versión, borra la base y la crea de nuevo.
+                    .fallbackToDestructiveMigration(dropAllTables = true)
+                    .build()
+                    .also { INSTANCE = it }
             }
     }
 }
