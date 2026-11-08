@@ -20,6 +20,10 @@ data class EmpleadosUiState(
 // AndroidViewModel: necesita el Context (app) para abrir la base de datos.
 class EmpleadosViewModel(app: Application) : AndroidViewModel(app) {
 
+    // Equivale a escribirlo en tres pasos:
+    // val db = AppDatabase.getInstance(app)
+    // val dao = db.empleadoDao()
+    // private val repo = EmpleadoRepository(dao)
     private val repo = EmpleadoRepository(AppDatabase.getInstance(app).empleadoDao())
 
     private val _estado = MutableStateFlow(EmpleadosUiState())
