@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -17,7 +16,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,15 +35,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import mx.tec.empleados.data.remote.Empleado
+import mx.tec.empleados.data.model.Empleado
 
 // Sirve para CREAR (empleado == null) y para EDITAR (empleado != null).
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EmpleadoFormScreen(
     empleado: Empleado?,
-    guardando: Boolean,
-    error: String?,
     onGuardar: (Empleado) -> Unit,
     onEliminar: () -> Unit,
     onRegresar: () -> Unit,
@@ -73,7 +69,7 @@ fun EmpleadoFormScreen(
                 },
                 actions = {
                     if (!esNuevo) {
-                        IconButton(onClick = { confirmarBorrado = true }, enabled = !guardando) {
+                        IconButton(onClick = { confirmarBorrado = true }) {
                             Icon(Icons.Filled.Delete, contentDescription = "Eliminar")
                         }
                     }
@@ -94,7 +90,6 @@ fun EmpleadoFormScreen(
                 onValueChange = { nombre = it },
                 label = { Text("Nombre *") },
                 singleLine = true,
-                enabled = !guardando,
                 modifier = Modifier.fillMaxWidth(),
             )
             OutlinedTextField(
@@ -102,7 +97,6 @@ fun EmpleadoFormScreen(
                 onValueChange = { correo = it },
                 label = { Text("Correo *") },
                 singleLine = true,
-                enabled = !guardando,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -111,7 +105,6 @@ fun EmpleadoFormScreen(
                 onValueChange = { puesto = it },
                 label = { Text("Puesto") },
                 singleLine = true,
-                enabled = !guardando,
                 modifier = Modifier.fillMaxWidth(),
             )
             OutlinedTextField(
@@ -119,17 +112,11 @@ fun EmpleadoFormScreen(
                 onValueChange = { departamento = it },
                 label = { Text("Departamento") },
                 singleLine = true,
-                enabled = !guardando,
                 modifier = Modifier.fillMaxWidth(),
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Activo", modifier = Modifier.weight(1f))
-                Switch(checked = activo, onCheckedChange = { activo = it }, enabled = !guardando)
-            }
-
-            // Error que regresó la API (409 correo repetido, sin conexión, etc.)
-            if (error != null) {
-                Text(error, color = MaterialTheme.colorScheme.error)
+                Switch(checked = activo, onCheckedChange = { activo = it })
             }
 
             Spacer(Modifier.height(8.dp))
@@ -146,14 +133,10 @@ fun EmpleadoFormScreen(
                         )
                     )
                 },
-                enabled = datosCompletos && !guardando,
+                enabled = datosCompletos,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                if (guardando) {
-                    CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
-                } else {
-                    Text(if (esNuevo) "Crear" else "Guardar cambios")
-                }
+                Text(if (esNuevo) "Crear" else "Guardar cambios")
             }
             Text(
                 "* Obligatorio",
@@ -167,7 +150,7 @@ fun EmpleadoFormScreen(
         AlertDialog(
             onDismissRequest = { confirmarBorrado = false },
             title = { Text("¿Eliminar empleado?") },
-            text = { Text("Se eliminará a ${empleado?.nombre} del servidor. No se puede deshacer.") },
+            text = { Text("Se eliminará a ${empleado?.nombre}. No se puede deshacer.") },
             confirmButton = {
                 TextButton(onClick = {
                     confirmarBorrado = false

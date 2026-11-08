@@ -1,34 +1,26 @@
 # Empleados · Room starter · TC2007B
 
-App Android (Kotlin + Jetpack Compose) con un **CRUD de empleados** contra la API [api-empleados-crud](https://github.com/jorflores/api-empleados-crud).
+App Android (Kotlin + Jetpack Compose) para practicar **Room**: un CRUD de empleados guardado en el teléfono.
 
-Es el **punto de partida de la clase de Room**. La app ya lista, crea, edita y borra empleados con Retrofit, pero **todo vive en la API**: sin internet la lista no carga. En clase agregaremos **Room** para que funcione sin conexión.
+## Ramas
 
-## Qué hace
+| Rama | Qué tiene |
+|---|---|
+| **`main`** | Punto de partida de la clase: **solo la UI y la navegación**. Los botones no guardan nada (`TODO (Room)`). |
+| **`room-solucion`** | La app terminada con **Room**: crear, editar y borrar empleados que sobreviven al cerrar la app. |
+| `api-starter` | Versión con Retrofit contra [api-empleados-crud](https://github.com/jorflores/api-empleados-crud), sin Room. |
+| `room-api-solucion` | Room + API: funciona sin conexión y sincroniza con la API al regresar la red. |
+
+## Qué hace (rama `main`)
 
 | Pantalla | Qué tiene |
 |---|---|
-| **Empleados** (lista) | Tarjetas con nombre, puesto y departamento. Botón ↻ para recargar y botón **+** para agregar. Si falla la conexión: mensaje y **Reintentar**. |
+| **Empleados** (lista) | Tarjetas con nombre, puesto y departamento. Botón **+** para agregar; tocar una tarjeta abre la edición. |
 | **Nuevo / Editar empleado** | Nombre y correo (obligatorios), puesto, departamento y switch **Activo**. En modo editar, el ícono 🗑 borra con confirmación. |
 
-## Antes de correrla: prende la API
+> **Prueba el problema:** agrega un empleado y toca **Crear**. Regresas a la lista… y sigue vacía. Las pantallas y la navegación funcionan, pero `EmpleadosViewModel` no guarda nada: eso es lo que haremos con Room.
 
-1. Clona [api-empleados-crud](https://github.com/jorflores/api-empleados-crud) y en su carpeta corre:
-   ```
-   docker compose up --build
-   ```
-2. Revisa que http://localhost:3000/empleados regrese 5 empleados en el navegador.
-3. Abre este proyecto en Android Studio (**File > Open**) y córrelo en el **emulador**.
-
-La URL ya apunta a `http://10.0.2.2:3000/`, que es tu computadora vista desde el emulador. Para cambiarla (túnel HTTPS o un teléfono físico), edita `BASE_URL` en `data/remote/RetrofitClient.kt`.
-
-> **Prueba el problema:** con la app abierta, apaga la API (`docker compose stop api`) o pon el emulador en modo avión y toca ↻. La lista no carga. Eso es lo que resolveremos con Room.
-
-## Arquitectura
-
-```
-Pantalla  →  EmpleadosViewModel  →  EmpleadoRepository  →  EmpleadosApi (Retrofit)  →  API
-```
+## Estructura
 
 ```
 mx.tec.empleados
@@ -37,30 +29,28 @@ mx.tec.empleados
 │   ├── Rutas.kt                    empleados  y  empleado/{id}  (id 0 = nuevo)
 │   └── AppNavigation.kt            NavHost + un solo ViewModel compartido
 ├── data
-│   ├── remote
-│   │   ├── Empleado.kt             El empleado (mismo JSON que la API); lo usa toda la app
-│   │   ├── EmpleadosApi.kt         GET, POST, PUT, DELETE /empleados
-│   │   └── RetrofitClient.kt       URL base, JSON y Logcat
-│   └── repository
-│       └── EmpleadoRepository.kt   Único lugar que sabe de dónde vienen los datos
+│   └── model
+│       └── Empleado.kt             El empleado (en clase se vuelve una tabla de Room)
 └── ui
     ├── viewmodel
-    │   └── EmpleadosViewModel.kt   Estado (cargando, guardando, empleados, error) y acciones
+    │   └── EmpleadosViewModel.kt   Estado de la lista + guardar() y eliminar() con TODO
     ├── screens
     │   ├── EmpleadosScreen.kt      Lista
     │   └── EmpleadoFormScreen.kt   Crear / editar / borrar
     └── theme                       Colores, tema y tipografía
 ```
 
-## Lo que agregaremos en clase (Room)
+## Lo que agregaremos en clase
 
-1. Dependencias de Room + plugin KSP.
-2. `data/local/EmpleadoEntity.kt`, `EmpleadoDao.kt` y `AppDatabase.kt`.
-3. `EmpleadoRepository`: guardar en Room lo que llega de la API y leer siempre desde Room.
-4. `EmpleadosViewModel` pasa a `AndroidViewModel` para poder abrir la base de datos.
+1. Dependencias de Room y el plugin KSP.
+2. `Empleado` se vuelve una tabla con `@Entity`.
+3. `EmpleadoDao`: las consultas.
+4. `AppDatabase`: la base de datos.
+5. `EmpleadoRepository`: el que habla con el DAO.
+6. `EmpleadosViewModel`: lee la lista de Room y guarda o borra con el Repository.
 
-Las pantallas no deberían cambiar: esa es la ventaja de tener el Repository.
+Las pantallas y la navegación no cambian.
 
 ## Versiones
 
-Las mismas de AppBase: Kotlin 2.4.10, AGP 9.5.0, Navigation 2.9.8, Lifecycle 2.9.4, Retrofit 3.0.0 y kotlinx.serialization 1.9.0. Todas están en `gradle/libs.versions.toml`.
+Kotlin 2.4.10, AGP 9.5.0, Navigation 2.9.8 y Lifecycle 2.9.4. Todas están en `gradle/libs.versions.toml`.

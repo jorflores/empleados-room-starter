@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -64,12 +63,7 @@ dependencies {
     // ViewModel en Compose: viewModel()
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    // Retrofit + kotlinx.serialization para hablar con la API
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.kotlinx.serialization)
-    implementation(libs.kotlinx.serialization.json)
-    // Muestra en Logcat cada petición y respuesta (filtro: okhttp)
-    implementation(libs.okhttp.logging.interceptor)
+    // TODO (Room): aquí van las dependencias de Room
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

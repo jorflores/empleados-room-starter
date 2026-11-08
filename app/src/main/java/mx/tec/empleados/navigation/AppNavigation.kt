@@ -26,17 +26,9 @@ fun AppNavigation() {
 
         composable(Rutas.LISTA) {
             EmpleadosScreen(
-                estado = estado,
-                onRecargar = { vm.cargar() },
-                onCerrarError = { vm.limpiarError() },
-                onAgregar = {
-                    vm.limpiarError()
-                    navController.navigate(Rutas.formulario(0))
-                },
-                onEditar = { id ->
-                    vm.limpiarError()
-                    navController.navigate(Rutas.formulario(id))
-                },
+                empleados = estado.empleados,
+                onAgregar = { navController.navigate(Rutas.formulario(0)) },
+                onEditar = { id -> navController.navigate(Rutas.formulario(id)) },
             )
         }
 
@@ -51,14 +43,9 @@ fun AppNavigation() {
 
             EmpleadoFormScreen(
                 empleado = empleado,
-                guardando = estado.guardando,
-                error = estado.error,
                 onGuardar = { datos -> vm.guardar(datos) { navController.popBackStack() } },
                 onEliminar = { vm.eliminar(id) { navController.popBackStack() } },
-                onRegresar = {
-                    vm.limpiarError()
-                    navController.popBackStack()
-                },
+                onRegresar = { navController.popBackStack() },
             )
         }
     }
