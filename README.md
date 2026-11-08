@@ -10,8 +10,7 @@ App Android (Kotlin + Jetpack Compose) para practicar **Room**: un CRUD de emple
 |---|---|
 | **`main`** | Punto de partida de la clase: **solo la UI y la navegación**. Los botones no guardan nada (`TODO (Room)`). |
 | **`room-solucion`** | La app terminada con **Room**: crear, editar y borrar empleados que sobreviven al cerrar la app. |
-| `api-starter` | Versión con Retrofit contra [api-empleados-crud](https://github.com/jorflores/api-empleados-crud), sin Room. |
-| `room-api-solucion` | Room + API: funciona sin conexión y sincroniza con la API al regresar la red. |
+| `room-api-solucion` | Room + [api-empleados-crud](https://github.com/jorflores/api-empleados-crud): funciona sin conexión y sincroniza con la API al regresar la red. Parte de `room-solucion`. |
 
 ## Qué hace (rama `main`)
 
