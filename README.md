@@ -1,5 +1,7 @@
 # Empleados · Room starter · TC2007B
 
+> **Estás en `room-solucion`:** la app terminada con Room. El punto de partida está en `main`.
+
 App Android (Kotlin + Jetpack Compose) para practicar **Room**: un CRUD de empleados guardado en el teléfono.
 
 ## Ramas

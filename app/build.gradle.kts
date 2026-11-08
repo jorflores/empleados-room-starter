@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -63,7 +64,9 @@ dependencies {
     // ViewModel en Compose: viewModel()
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    // TODO (Room): aquí van las dependencias de Room
+    // Room: base de datos local
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
