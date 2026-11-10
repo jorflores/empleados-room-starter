@@ -1,6 +1,6 @@
 # Empleados · Room starter · TC2007B
 
-> **Estás en `room-solucion`:** la app terminada con Room. El punto de partida está en `main`.
+> **Estás en `room-api-solucion`:** Room + API, versión sencilla. Sin conexión se pueden **crear** empleados (quedan como *Pendiente* y se envían al sincronizar); editar y borrar necesitan internet. Para ver solo lo que se agregó sobre la versión con Room: `git diff room-solucion room-api-solucion`.
 
 App Android (Kotlin + Jetpack Compose) para practicar **Room**: un CRUD de empleados guardado en el teléfono.
 

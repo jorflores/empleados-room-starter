@@ -42,6 +42,7 @@ import mx.tec.empleados.data.model.Empleado
 @Composable
 fun EmpleadoFormScreen(
     empleado: Empleado?,
+    error: String?,
     onGuardar: (Empleado) -> Unit,
     onEliminar: () -> Unit,
     onRegresar: () -> Unit,
@@ -117,6 +118,11 @@ fun EmpleadoFormScreen(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Activo", modifier = Modifier.weight(1f))
                 Switch(checked = activo, onCheckedChange = { activo = it })
+            }
+
+            // Error al guardar (sin conexión, correo repetido...)
+            if (error != null) {
+                Text(error, color = MaterialTheme.colorScheme.error)
             }
 
             Spacer(Modifier.height(8.dp))
